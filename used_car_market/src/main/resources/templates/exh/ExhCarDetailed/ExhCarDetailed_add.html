@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加车辆详细信息</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+
+<div style="margin: auto;text-align: center">
+    <h3>添加车辆详细信息</h3>
+</div>
+
+<div class="container">
+    <form>
+        <table class="table table-hover table-bordered">
+            <caption>车辆数据</caption>
+            <thead>
+            <tr>
+                <th width="30%">字段</th>
+                <th>数据</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>品牌</td>
+                <td>
+                    <select class="form-control" id="brand">
+                        <option th:each="data:${brandList}" th:value="${data.getSheetid()}">
+                            [[${data.getDicttypename()}]]
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>系列</td>
+                <td>
+                    <select class="form-control" id="series">
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>车型</td>
+                <td>
+                    <select class="form-control" id="model">
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>厂商</td>
+                <td>
+                    <input type="text" class="form-control" id="maunfaturer" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>级别</td>
+                <td>
+                    <select class="form-control" id="level">
+                        <option th:each="data:${levelList}" th:value="${data.getDicttypename()}">
+                            [[${data.getDicttypename()}]]
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>发动机</td>
+                <td>
+                    <input type="text" class="form-control" id="engine" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>变速箱</td>
+                <td>
+                    <input type="text" class="form-control" id="gearbox" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>尺寸</td>
+                <td>
+                    <input type="text" class="form-control" id="size" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>车身结构</td>
+                <td>
+                    <input type="text" class="form-control" id="structure" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>排放标准</td>
+                <td>
+                    <select class="form-control" id="emissionstandard">
+                        <option th:each="data:${emissionstandardList}" th:value="${data.getDicttypename()}">
+                            [[${data.getDicttypename()}]]
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>排量</td>
+                <td>
+                    <input type="text" class="form-control" id="displacement" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>燃油类型</td>
+                <td>
+                    <input type="text" class="form-control" id="fueltype" value="">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <button type="button" class="btn btn-success btn-lg" id="sub_add">添加</button>
+                    <button type="reset" class="btn btn-primary btn-lg" id="reset_add">重置</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <h2 id="tip" style="text-align: center"></h2>
+</div>
+<div th:replace="~{common/common::footbar}"></div>
+
+<script th:src="@{/js/exh/ExhCarDetailed/ExhCarDetailed_info.js}"></script>
+</body>
+</html>

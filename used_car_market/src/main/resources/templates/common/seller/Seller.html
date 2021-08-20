@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>卖方选择项</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+
+<div style="margin: auto;text-align: center">
+    <h3>卖方选择项</h3>
+</div>
+
+<div class="container">
+    <form>
+        <div class="row">
+            <div class="col-sm-4">
+                品牌
+            </div>
+            <div class="col-sm-4">
+                系列
+            </div>
+            <div class="col-sm-4">
+                车型
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <select class="form-control" id="brand">
+                    <option th:each="data:${brandList}" th:value="${data.getSheetid()}">[[${data.getDicttypename()}]]</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" id="series">
+
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" id="model">
+
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="~{common/common::footbar}"></div>
+
+<script th:src="@{/js/common/seller/Seller.js}"></script>
+</body>
+</html>

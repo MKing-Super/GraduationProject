@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>前端练习</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script type="text/javascript">
+        {
+            var a = 1;
+            let b = 2;
+            const c = 3;
+            //c = 44;
+            var aa;
+            let bb;
+            console.log("a: "+a);
+            console.log("b: "+b);
+            console.log("c: "+c);
+            console.log("aa: "+aa);
+            console.log("bb: "+bb);
+        }
+        console.log("a: "+a);
+        //console.log("b: "+b);
+        //console.log("c: "+c);
+
+        const person = {
+            name:'jj',
+            sex:'男'
+        };
+        person.name = 'ss';
+        // person = {
+        //     name: 'kk',
+        //     sex: 'nv'
+        // };
+        console.log(person)
+
+    </script>
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-12">
+        <a class="btn btn-danger btn-lg" id="codeGenerator" type="button">点击测试</a>
+    </div>
+</div>
+
+
+<script th:src="@{/js/utils/tools/ThymeleafPractice/HtmlPractice.js}"></script>
+</body>
+</html>

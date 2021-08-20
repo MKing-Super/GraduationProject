@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员中心</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}"></script>
+</head>
+<style>
+    /*
+    表格隔行变色
+    */
+    #ExhCarDetailedTable tr:nth-child(even) {
+        background: #fafafa;
+    }
+
+    #ExhCarDetailedTable th {
+        background: #efefef;
+    }
+</style>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="margin: auto;width: 90%">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div th:replace="~{common/common::adminSideBar}"></div>
+        </div>
+        <div class="col-sm-10">
+
+            <div style="margin: auto;text-align: center">
+                <h3>欢迎来到管理员中心</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+</body>
+</html>

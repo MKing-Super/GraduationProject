@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆详情列表</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}"></script>
+</head>
+<style>
+    /*
+    表格隔行变色
+    */
+    #ExhCarDetailedTable tr:nth-child(even) {
+        background: #fafafa;
+    }
+
+    #ExhCarDetailedTable th {
+        background: #efefef;
+    }
+</style>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+
+<div style="margin: auto;width: 90%">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div th:replace="~{common/common::adminSideBar}"></div>
+        </div>
+        <div class="col-sm-10">
+            <div style="margin: auto;text-align: center">
+                <h3>车辆详细信息展示/添加/删除</h3>
+            </div>
+            <div class="panel-body" style="padding-bottom:0px;">
+                <div class="btn-group" id="toolbar">
+                    <button class="btn btn-default" id="btn_add" type="button">
+                        <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>新增
+                    </button>
+<!--                    <button class="btn btn-default" id="btn_edit" type="button">-->
+<!--                        <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>修改-->
+<!--                    </button>-->
+                    <button class="btn btn-default" id="btn_delete" type="button">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>删除
+                    </button>
+                </div>
+
+                <table id="ExhCarDetailedTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/js/exh/ExhCarDetailed/ExhCarDetailed.js}"></script>
+
+
+<div th:replace="~{common/common::footbar}"></div>
+
+
+</body>
+</html>

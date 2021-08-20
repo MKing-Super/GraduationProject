@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf练习</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body>
+<!--<div th:replace="~{common/common::topbar}"></div>-->
+
+<div class="container">
+    <p th:text="text标签 + ${msg}"></p>
+</div>
+
+<!--<div th:replace="~{common/common::footbar}"></div>-->
+
+<script th:src="@{/js/utils/tools/ThymeleafPractice/ThymeleafPractice.js}"></script>
+</body>
+</html>

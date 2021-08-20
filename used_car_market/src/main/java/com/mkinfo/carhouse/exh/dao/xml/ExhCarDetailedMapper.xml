@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkinfo.carhouse.exh.dao.ExhCarDetailedMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mkinfo.carhouse.exh.model.ExhCarDetailed">
+        <id column="SHEETID" property="sheetid" />
+        <result column="BRAND" property="brand" />
+        <result column="SERIES" property="series" />
+        <result column="MODEL" property="model" />
+        <result column="MAUNFATURER" property="maunfaturer" />
+        <result column="LEVEL" property="level" />
+        <result column="ENGINE" property="engine" />
+        <result column="GEARBOX" property="gearbox" />
+        <result column="SIZE" property="size" />
+        <result column="STRUCTURE" property="structure" />
+        <result column="EMISSIONSTANDARD" property="emissionstandard" />
+        <result column="DISPLACEMENT" property="displacement" />
+        <result column="FUELTYPE" property="fueltype" />
+    </resultMap>
+
+</mapper>

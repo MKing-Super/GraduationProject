@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>卖方上架车辆</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/css/fileinput.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.fr.js}"></script>
+    <script th:src="@{/js/fileinput.min.js}"></script>
+    <script th:src="@{/js/fileinput_locale_zh.js}"></script>
+</head>
+<body class="bg_image">
+<div th:replace="~{common/common::topbar}"></div>
+
+<div class="container bg_upload">
+        <div style="margin: auto;text-align: center">
+            <h3>卖方上架车辆</h3>
+        </div>
+        <hr/>
+        <form id="addFrom" enctype="multipart/form-data">
+            <table class="table table-hover table-bordered">
+                <caption>车辆数据</caption>
+                <thead>
+                <tr>
+                    <th width="30%">字段</th>
+                    <th>数据</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>品牌</td>
+                    <td>
+                        <select class="form-control" id="brand" name="brand">
+                            <option th:each="data:${brandList}" th:value="${data.getSheetid()}">
+                                [[${data.getDicttypename()}]]
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>系列</td>
+                    <td>
+                        <select class="form-control" id="series" name="series">
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>车型</td>
+                    <td>
+                        <select class="form-control" id="model">
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>上牌时间</td>
+                    <td>
+                        <input size="16" type="text" id="registrationtime" readonly class="form-control form_datetime" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <td>行驶里程</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="mileage"
+                                   onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" autocomplete="off">
+                            <span class="input-group-addon">万公里</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>过户次数</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="transferrecord"
+                                   onkeyup="value=value.replace(/^()|[^\d]+/g,'')" autocomplete="off">
+                            <span class="input-group-addon">次</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>使用性质</td>
+                    <td>
+                        <select class="form-control" id="useproperties">
+                            <option th:each="data:${usepropertiesList}" th:value="${data.getDicttypename()}">
+                                [[${data.getDicttypename()}]]
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>产权性质</td>
+                    <td>
+                        <select class="form-control" id="propertyright">
+                            <option th:each="data:${propertyrightList}" th:value="${data.getDicttypename()}">
+                                [[${data.getDicttypename()}]]
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="price"
+                                   onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" autocomplete="off">
+                            <span class="input-group-addon">万元</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        车辆图片
+                        <h4>选择多个图片点击按钮上传</h4>
+                        <form class="form" action="#" method="post" enctype="multipart/form-data"  id="pollutionForm">
+                            <!-- 注意事项：Input type类型为file class为样式 id随意 name随意
+                                 multiple（如果是要多图上传一定要加上，不加的话每次只能选中一张图）-->
+                            <input type="file" class="filePath imgFile form-control" id="img" multiple name="images"><br>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-lg" id="sub_add">添加</button>
+                        <button type="reset" class="btn btn-primary btn-lg" id="reset_add">重置</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <h2 id="tip" style="text-align: center"></h2>
+    </div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+<link rel="stylesheet" th:href="@{/css/exh/ExhCar/ExhCar_add.css}">
+<script th:src="@{/js/exh/ExhCar/ExhCar_info.js}"></script>
+<script th:src="@{/js/exh/ExhCar/ExhCarPicturesUpload.js}"></script>
+</body>
+</html>

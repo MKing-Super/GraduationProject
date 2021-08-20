@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看车辆信息</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<style>
+    body {
+        background-color: aliceblue;
+    }
+</style>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="margin: auto;width: 80%">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="carousel slide" id="carPictures">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carPictures" th:class="${data.first}?'active':''"
+                        th:each="area,data:${exhCar.getExhPicturesList()}"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <div class="item" style="height: 600px"
+                         th:classappend="${data.first}?'active':''" th:each="area,data:${exhCar.getExhPicturesList()}">
+                        <img style="height: 100%;margin: auto" th:src="@{${data.current.path}}">
+                    </div>
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="left carousel-control" data-slide="prev" href="#carPictures" role="button">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" data-slide="next" href="#carPictures" role="button">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <h3>[[${exhCar.getExhCarDetailed().getBrand()}]]</h3>
+                </div>
+                <div class="col-sm-3">
+                    <h3>[[${exhCar.getExhCarDetailed().getSeries()}]]</h3>
+                </div>
+                <div class="col-sm-7">
+                    <h3>[[${exhCar.getExhCarDetailed().getModel()}]]</h3>
+                </div>
+            </div>
+            <hr>
+            <p>上牌时间：</p>
+            <h4>[[${exhCar.getRegistrationtime()}]]</h4>
+            <hr>
+            <p>表显里程：</p>
+            <h4>[[${exhCar.getMileage()}]]</h4>
+            <hr>
+            <p>排量：</p>
+            <h4>[[${exhCar.getExhCarDetailed().getDisplacement()}]]</h4>
+            <hr>
+            <p></p>
+            <h4>[[${exhCar.getExhCarDetailed().getGearbox()}]]</h4>
+            <hr>
+            <p>车辆全款：</p>
+            <h4>[[${exhCar.getPrice()}]] 万元</h4>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12" style="text-align: center">
+                    <a class="btn btn-info btn-lg" id="collect" onclick="collectClick(this)" type="button">我要收藏</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-2">
+                <h2>[[${exhCar.getExhCarDetailed().getBrand()}]]</h2>
+            </div>
+            <div class="col-sm-3">
+                <h2>[[${exhCar.getExhCarDetailed().getSeries()}]]</h2>
+            </div>
+            <div class="col-sm-7">
+                <h2>[[${exhCar.getExhCarDetailed().getModel()}]]</h2>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-bordered">
+                <caption>卖主的基本信息</caption>
+                <thead>
+                <tr>
+                    <th width="30%">字段</th>
+                    <th>数据</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>车主</td>
+                        <td>[[${exhCar.getSysUser().getUsername()}]]</td>
+                    </tr>
+                    <tr>
+                        <td>手机号</td>
+                        <td>[[${exhCar.getSysUser().getPhone()}]]</td>
+                    </tr>
+                    <tr>
+                        <td>人员昵称</td>
+                        <td>[[${exhCar.getSysUser().getPetname()}]]</td>
+                    </tr>
+                    <tr>
+                        <td>人员类别</td>
+                        <td>[[${exhCar.getSysUser().getPersonnalcategory()}]]</td>
+                    </tr>
+                    <tr>
+                        <td>等级</td>
+                        <td>[[${exhCar.getSysUser().getGrade()}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-bordered">
+                <caption>车辆的基本信息</caption>
+                <thead>
+                    <tr>
+                        <th width="30%">字段</th>
+                        <th>数据</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        上牌时间：
+                    </td>
+                    <td>
+                        [[${exhCar.getRegistrationtime()}]]
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        表显里程：
+                    </td>
+                    <td>
+                        [[${exhCar.getMileage()}]]
+                    </td>
+                </tr>
+                <tr>
+                    <td>排放标准：</td>
+                    <td>[[${exhCar.getExhCarDetailed().getEmissionstandard()}]]</td>
+                </tr>
+                <tr>
+                    <td>变速箱：</td>
+                    <td>[[${exhCar.getExhCarDetailed().getGearbox()}]]</td>
+                </tr>
+                <tr>
+                    <td>排量：</td>
+                    <td>[[${exhCar.getExhCarDetailed().getDisplacement()}]]</td>
+                </tr>
+                <tr>
+                    <td>过户次数：</td>
+                    <td>[[${exhCar.getTransferrecord()}]]</td>
+                </tr>
+                <tr>
+                    <td>使用性质：</td>
+                    <td>[[${exhCar.getUseproperties()}]]</td>
+                </tr>
+                <tr>
+                    <td>产权性质：</td>
+                    <td>[[${exhCar.getPropertyright()}]]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-12">
+                <table class="table table-hover table-bordered">
+                    <caption>车辆的详细信息</caption>
+                    <thead>
+                    <tr>
+                        <th width="30%">字段</th>
+                        <th>数据</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>品牌</td>
+                            <td>[[${exhCar.getExhCarDetailed().getBrand()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>车系</td>
+                            <td>[[${exhCar.getExhCarDetailed().getSeries()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>车型</td>
+                            <td>[[${exhCar.getExhCarDetailed().getModel()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>厂商</td>
+                            <td>[[${exhCar.getExhCarDetailed().getMaunfaturer()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>等级</td>
+                            <td>[[${exhCar.getExhCarDetailed().getLevel()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>发动机</td>
+                            <td>[[${exhCar.getExhCarDetailed().getEngine()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>变速箱</td>
+                            <td>[[${exhCar.getExhCarDetailed().getGearbox()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>尺寸</td>
+                            <td>[[${exhCar.getExhCarDetailed().getSize()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>车身结构</td>
+                            <td>[[${exhCar.getExhCarDetailed().getStructure()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>排放标准</td>
+                            <td>[[${exhCar.getExhCarDetailed().getEmissionstandard()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>排量</td>
+                            <td>[[${exhCar.getExhCarDetailed().getDisplacement()}]]</td>
+                        </tr>
+                        <tr>
+                            <td>燃油类型</td>
+                            <td>[[${exhCar.getExhCarDetailed().getFueltype()}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <div class="row" style="display: none">
+        <div class="col-sm-12">
+            车辆的其他信息
+            <p>车辆基本信息id：[[${exhCar.getSheetid()}]]</p>
+            <p>车辆状态：[[${exhCar.getState()}]]</p>
+            <p>详细信息ID：[[${exhCar.getDetailedid()}]]</p>
+            <p>人员ID(外键)：[[${exhCar.getUserid()}]]</p>
+            <p>创建时间：[[${exhCar.getCreatetime()}]]</p>
+            <p>车辆配图：[[${exhCar.getExhPicturesList()}]]</p>
+        </div>
+    </div>
+
+    <hr/>
+    <h2>车辆图片</h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <img style="width: 33%;" th:each="area,data:${exhCar.getExhPicturesList()}"
+                 th:src="@{${data.current.path}}">
+        </div>
+    </div>
+
+
+</div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+<input hidden id="exhCarSheetid" readonly th:value="${exhCar.getSheetid()}" type="text">
+
+<script th:inline="javascript" th:src="@{/js/exh/ExhCar/CarInformation.js}"></script>
+
+</body>
+</html>

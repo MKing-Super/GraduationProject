@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- 头部导航栏 -->
+<div th:fragment="topbar" style="height: 7%;width: 95%;margin: auto">
+    <nav class="navbar navbar-default" role="navigation" >
+        <div class="container-fluid row">
+            <div class="navbar-header col-sm-3" style="text-align: center">
+                <a class="navbar-brand btn btn-block" th:href="@{/}">首&nbsp;&nbsp;&nbsp;&nbsp;页</a>
+            </div>
+            <div class="navbar-header col-sm-3">
+                <a class="navbar-brand btn btn-block" th:href="@{/exhCar/toExhCarView}">我要买车</a>
+            </div>
+            <div class="navbar-header col-sm-3">
+                <a class="navbar-brand btn btn-block" th:href="@{/exhCar/toExhCarAdd}">我要卖车</a>
+            </div>
+            <div class="col-sm-3">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="register" th:if="${session.SYS_USER} eq null">
+                        <a th:href="@{/sysUser/toRegister}">
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;注册
+                        </a>
+                    </li>
+                    <li id="login" th:if="${session.SYS_USER} eq null">
+                        <a th:href="@{/sysUser/toLogin}">
+                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;登录
+                        </a>
+                    </li>
+                    <li id="user" th:if="${session.SYS_USER} ne null">
+                        <a th:href="@{/sysUser/toPersonalCenter}">
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;
+                            <span id="petname"></span>[[${session.SYS_USER.petname}]]
+                        </a>
+                    </li>
+                    <li class="dropdown" th:if="${session.SYS_USER} ne null">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-tower">个人中心</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu list-group-item-text">
+                            <li><a th:href="@{/sysUser/toAccountManagement}">账户管理</a></li>
+                            <li><a th:href="@{/userCollections/toUserCollections}">我的收藏</a></li>
+                            <li><a th:href="@{/userHistory/toUserHistory}">浏览记录</a></li>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/sysUser/toPersonalCenter}">设置</a></li>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/sysUser/logout}">退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 项目的绝对路径 -->
+    <input type="text" id="RootPath" disabled hidden th:value="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath()}">
+
+    <!-- 引入的js -->
+    <script th:src="@{/js/common/common.js}"></script>
+    <!-- 关于thmyeleaf的js代码必须写在html里，不能写在js文件中外联 -->
+    <script th:inline="javascript">
+        //获取当前的登陆用户
+        let SYS_USER = [[${session.SYS_USER}]];
+    </script>
+</div>
+
+<!-- 页尾 -->
+<div th:fragment="footbar" class="navbar-static-bottom" style="width: 96%;margin: auto;">
+    <br/>
+    <br/>
+    <div style="height: 170px;background-color: steelblue;background-image: linear-gradient(gray, #9198e5);width: 100%;border-radius:10px;">
+        <div style="margin: auto">
+            <p class="mt-5 mb-3 text-muted btn btn-block" style="color: black">© 2020-2021</p>
+        </div>
+        <div class="row" style="height: 150px">
+            <div class="col-sm-1" style="text-align: center">
+                <img class="img-rounded" src="/images/QR_code.png" style="height: 100px">
+            </div>
+            <div class="col-sm-5">
+                <table style="margin: auto">
+                    <tr>
+                        <td>咨询电话：</td>
+                        <td>178-6140-5200</td>
+                        <td>（周一至周五 9:00-5:00）</td>
+                    </tr>
+                    <tr>
+                        <td>服务监督热线：</td>
+                        <td>178-6140-5200</td>
+                        <td>（周一至周五 9:00-5:00）</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>互联网违法或不良信息举报联系方式：</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>邮箱</td>
+                        <td>121578277@qq.com</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img class="img-rounded" src="/images/myWechatCode.png" style="height: 100px">
+                        <span class="glyphicon glyphicon-circle-arrow-up">支持我们</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <img class="img-rounded" src="/images/myWechatCodeContact.png" style="height: 100px">
+                        <span class="glyphicon glyphicon-circle-arrow-up">联系我们</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+<!--                <table style="margin: auto;">-->
+<!--                    <tr>-->
+<!--                        <td>关于我们&nbsp;&nbsp;</td>-->
+<!--                        <td>公司介绍&nbsp;&nbsp;</td>-->
+<!--                        <td>加入我们&nbsp;&nbsp;</td>-->
+<!--                        <td>联系我们&nbsp;&nbsp;</td>-->
+<!--                        <td>服务保证&nbsp;&nbsp;</td>-->
+<!--                        <td>隐私声明&nbsp;&nbsp;</td>-->
+<!--                        <td>服务条框&nbsp;&nbsp;</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>营业执照</td>-->
+<!--                        <td>环评公示</td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 管理员侧边栏 -->
+<div th:fragment="adminSideBar">
+    <h4>数据维护</h4>
+    <ul class="nav nav-pills nav-stacked">
+        <li><a th:href="@{/baseDict/toBaseDict}">数据字典维护</a></li>
+        <li><a th:href="@{/carDetailedMiddle/toCarDetailedMiddle}">品牌-车系-车型中间表维护</a></li>
+        <li><a th:href="@{/exhCarDetailed/toExhCarDetailed}">车辆详细信息展示/添加/删除</a></li>
+    </ul>
+    <h4>车辆管理</h4>
+    <ul class="nav nav-pills nav-stacked">
+        <li><a th:href="@{/sysCheck/toSysCheck}">车辆审核</a></li>
+        <li><a th:href="@{/sysSaleCar/toSysSaleCar}">已经售出的车辆</a></li>
+        <li><a th:href="@{/exhCar/toExhCar}">所有车辆列表展示</a></li>
+    </ul>
+    <h4>系统中所有的功能</h4>
+    <ul class="nav nav-pills nav-stacked">
+        <li><a th:href="@{/common/toAllFunctionPoints}">功能点</a></li>
+    </ul>
+</div>
+
+<!-- 普通用户侧边栏 -->
+<div th:fragment="userSideBar">
+    <h4>功能</h4>
+    <ul class="nav nav-pills nav-stacked">
+        <li><a th:href="@{/userCollections/toUserCollections}">买方车辆收藏</a></li>
+        <li><a th:href="@{/userHistory/toUserHistory}">用户浏览历史记录</a></li>
+        <li><a th:href="@{/exhCar/toUserCarInformationList}">用户上架车辆信息</a></li>
+    </ul>
+</div>
+
+</html>

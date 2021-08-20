@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>所有车辆展示</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}"></script>
+</head>
+<style>
+    /*
+    表格隔行变色
+    */
+    #tb_departments tr:nth-child(even){
+        background: #fafafa;
+    }
+    #tb_departments th {
+        background: #efefef;
+    }
+</style>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="margin: auto;width: 90%">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div th:replace="~{common/common::adminSideBar}"></div>
+        </div>
+        <div class="col-sm-10">
+
+            <div class="panel-body" style="padding-bottom:0px;">
+                <table id="tb_departments"></table>
+            </div>
+            <hr/>
+            <!--<a class="btn btn-success" onclick="checkAgree()">通过</a>-->
+
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="~{common/common::footbar}"></div>
+
+
+<script th:inline="javascript" th:src="@{/js/sys/SysCheck/SysCheck.js}"></script>
+</body>
+</html>

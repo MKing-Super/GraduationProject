@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>所有车辆详细视图展示</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body class="bg_image">
+<div th:replace="~{common/common::topbar}"></div>
+
+<div class="bg_query">
+    <div class="row" >
+        <div class="col-sm-1" style="padding-top: 8px;font-weight: bold">
+            品牌
+        </div>
+        <div class="col-sm-10">
+            <ul class="nav nav-pills" id="brand">
+                <li th:each="data:${brandList}" th:value="${data.getDicttypecode()}" th:id="${data.getSheetid()}" onclick="brandClick(this)"><a href="#">[[${data.getDicttypename()}]]</a></li>
+            </ul>
+        </div>
+<!--        <div class="col-sm-1">-->
+<!--            <ul class="nav nav-pills">-->
+<!--                <li><a href="#">更多</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1" style="padding-top: 8px;font-weight: bold">
+            车系
+        </div>
+        <div class="col-sm-10">
+            <ul class="nav nav-pills" id="series">
+
+            </ul>
+        </div>
+<!--        <div class="col-sm-1">-->
+<!--            <ul class="nav nav-pills">-->
+<!--                <li><a href="#">更多</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1" style="padding-top: 8px;font-weight: bold">
+            价格
+        </div>
+        <div class="col-sm-5">
+            <ul class="nav nav-pills">
+                <li value="price" onclick="priceClick(this)"><a href="#">3万以下</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">3-5万</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">5-7万</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">7-10万</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">10-15万</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">15-20万</a></li>
+                <li value="price" onclick="priceClick(this)"><a href="#">20万以上</a></li>
+
+            </ul>
+        </div>
+
+        <!--<div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="minPrice" placeholder="最低价格"
+                           onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" >
+                </div>
+                <div class="col-sm-1">
+                    &#45;&#45;&#45;&#45;
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="maxPrice" placeholder="最高价格"
+                           onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" >
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" value="" class="btn btn-success" id="priceSub" onclick="priceClick(this)">确定</button>
+                </div>
+            </div>
+        </div>-->
+
+    </div>
+
+    <div class="row" >
+        <div class="col-sm-1" style="padding-top: 8px;font-weight: bold">
+            其他
+        </div>
+        <div class="col-sm-10">
+            <ul class="nav nav-pills">
+                <li>
+                    <select class="form-control"id="vehicleAgeSelect" onchange="vehicleAgeChange(this)">
+                        <option value="vehicleAge" selected>车龄</option>
+                        <option value="vehicleAge">1年以内</option>
+                        <option value="vehicleAge">3年以内</option>
+                        <option value="vehicleAge">5年以内</option>
+                        <option value="vehicleAge">8年以内</option>
+                        <option value="vehicleAge">8年以上</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="mileageSelect" onchange="mileageChange(this)">
+                        <option value="mileage">里程</option>
+                        <option value="mileage">1万公里内</option>
+                        <option value="mileage">3万公里内</option>
+                        <option value="mileage">5万公里内</option>
+                        <option value="mileage">8万公里内</option>
+                        <option value="mileage">10万公里内</option>
+                        <option value="mileage">10万公里以上</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="usepropertiesSelect" onchange="usepropertiesChange(this)">
+                        <option value="car-useproperties">使用性质</option>
+                        <option th:each="data:${usepropertiesList}" th:value="${data.getDicttypecode()}">[[${data.getDicttypename()}]]</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="propertyrightSelect" onchange="propertyrightChange(this)">
+                        <option value="car-propertyright">产权性质</option>
+                        <option th:each="data:${propertyrightList}" th:value="${data.getDicttypecode()}">[[${data.getDicttypename()}]]</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="levelSelect" onchange="levelChange(this)">
+                        <option value="car-level">车辆等级</option>
+                        <option th:each="data:${levelList}" th:value="${data.getDicttypecode()}">[[${data.getDicttypename()}]]</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="emissionstandardSelect" onchange="emissionstandardChange(this)">
+                        <option value="car-emissionstandard">排放标准</option>
+                        <option th:each="data:${emissionstandardList}" th:value="${data.getDicttypecode()}">[[${data.getDicttypename()}]]</option>
+                    </select>
+                </li>
+                <li>
+                    <select class="form-control" id="fueltypeSelect" onchange="fueltypeChange(this)">
+                        <option value="fueltype">燃油类型</option>
+                        <option value="fueltype">汽油</option>
+                        <option value="fueltype">柴油</option>
+                        <option value="fueltype">电动</option>
+                        <option value="fueltype">油电混合</option>
+                        <option value="fueltype">其他</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row" >
+        <div class="col-sm-1" style="padding-top: 8px;font-weight: bold">
+            当前筛选
+        </div>
+        <div class="col-sm-11">
+            <ul class="nav nav-pills" id="screenCondition">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<br/>
+<div style="margin: auto;width: 80%" id="view">
+</div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+<link rel="stylesheet" th:href="@{/css/exh/ExhCar/ExhCarView.css}">
+<script th:inline="javascript" th:src="@{/js/exh/ExhCar/ExhCarView.js}"></script>
+
+</body>
+</html>

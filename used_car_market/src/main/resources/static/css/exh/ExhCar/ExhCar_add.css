@@ -1,0 +1,17 @@
+.bg_image {
+    width: 100%;
+    background: url("/images/background_upload.jpg");
+    background-size: cover;
+}
+
+.bg_upload{
+    background-color: #dee2e6;
+    border-radius:20px;
+    filter:alpha(Opacity=-100);
+    -moz-opacity:0.9;
+    opacity: 0.9;
+}
+
+table{
+    font-size: 18px;
+}

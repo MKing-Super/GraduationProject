@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>系统全部的功能点</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body class="text-center">
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="width:90%;text-align: center;margin: auto">
+    <h1>这里是系统全部的功能点</h1>
+    <p th:if="${session.SYS_USER} ne null">
+        [[${session.SYS_USER.petname}]]
+    </p>
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="btn btn-success btn-lg" th:href="@{/bootstrap/topractice}" type="button">Bootstrap练习</a>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-success btn-lg" th:href="@{/BootstrapTable/toTable}" type="button">Bootstrap Table</a>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-success btn-lg" th:href="@{/thmyeleaf/th}" type="button">Thymeleaf练习</a>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-success btn-lg" th:href="@{/fileUpload/toFileUpload}" type="button">文件上传练习</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-4">
+            <a class="btn btn-warning btn-lg" th:href="@{/baseDict/toBaseDict}" type="button">数据字典维护</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-warning btn-lg" th:href="@{/carDetailedMiddle/toCarDetailedMiddle}" type="button">品牌-车系-车型中间表维护</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-warning btn-lg" th:href="@{/exhCarDetailed/toExhCarDetailed}"
+               type="button">车辆详细信息展示/添加/删除</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-6">
+            <a class="btn btn-primary btn-lg" th:href="@{/seller/toSelectCarType}" type="button">卖方选择车的类别</a>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary btn-lg " th:href="@{/exhCar/toExhCarAdd}" type="button">卖方上架车辆</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-4">
+            <a class="btn btn-default btn-lg" th:href="@{/exhCar/toExhCar}" type="button">所有车辆列表展示</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-default btn-lg " th:href="@{/exhCar/toExhCarView}" type="button" >所有车辆详细视图展示</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-default btn-lg " th:href="@{/sysUser/toAccountManagement}" type="button" >账户管理</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-6">
+            <a class="btn btn-info btn-lg " th:href="@{/userCollections/toUserCollections}" type="button" >买方车辆收藏</a>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-info btn-lg " th:href="@{/userHistory/toUserHistory}" type="button" >用户浏览历史记录</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-6">
+            <a class="btn btn-warning btn-lg" th:href="@{/sysCheck/toSysCheck}" type="button">车辆审核</a>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-warning btn-lg" th:href="@{/sysSaleCar/toSysSaleCar}" type="button">已经售出的车辆</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="btn btn-danger btn-lg" id="codeGenerator" type="button">代码生成器</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="btn btn-success btn-lg" th:href="@{/thmyeleaf/HtmlPractice}" type="button">前端练习</a>
+        </div>
+    </div>
+    <img  th:src="@{/upload/footer.gif}">
+</div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+<script th:src="@{/js/common/administrators/AllFunctionPoints.js}"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆数据字典</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="margin: auto;width: 90%">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div th:replace="~{common/common::adminSideBar}"></div>
+        </div>
+        <div class="col-sm-10">
+            <div style="margin: auto;text-align: center">
+                <h3>数据字典</h3>
+            </div>
+            <div class="container">
+                <form>
+                    <table class="table table-hover table-bordered">
+                        <caption>车辆数据</caption>
+                        <thead>
+                        <tr>
+                            <th>字段名</th>
+                            <th>数据</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><h4>数据字典类别代码</h4></td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <select class="form-control" id="pre_dicttypecode">
+                                            <option value="car-">汽车</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" id="aft_dicttypecode">
+                                            <option value="brand">品牌</option>
+                                            <option value="series">车系</option>
+                                            <option value="model">车型</option>
+                                            <option value="useproperties">使用性质</option>
+                                            <option value="propertyright">产权性质</option>
+                                            <option value="level">等级（大中小型车）</option>
+                                            <option value="emissionstandard">排放标准（国四五六）</option>
+                                            <option value="state">状态（审核、待售、已售）</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h4>数据字典类别名称</h4></td>
+                            <td><input autocomplete="off" class="form-control" id="dicttypename" placeholder="格式：奥迪" type="text"
+                                       value=""></td>
+                        </tr>
+                        <tr>
+                            <td><h4>是否可用：1：使用0：停用</h4></td>
+                            <td>
+                                <select class="form-control" id="dictenable">
+                                    <option selected value="1">可用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <button class="btn btn-success btn-lg" id="dict_add" type="button">添加</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-warning btn-lg" type="reset">重置</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <h2 id="tip" style="text-align: center"></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/dict/BaseDict/BaseDict.js}"></script>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+
+</body>
+</html>

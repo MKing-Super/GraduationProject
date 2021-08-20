@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BootstrapTable</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}"></script>
+</head>
+<style>
+    /*
+    表格隔行变色
+    */
+    #tb_departments tr:nth-child(even){
+        background: #fafafa;
+    }
+    #tb_departments th {
+        background: #efefef;
+    }
+</style>
+<body>
+<!--<div th:replace="~{common/common::topbar}"></div>-->
+
+<div class="panel-body" style="padding-bottom:0px;">
+  <!--  <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form class="form-horizontal" id="formSearch">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" id="txt_search_departmentname" type="text">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" id="txt_search_statu" type="text">
+                    </div>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <button class="btn btn-primary" id="btn_query" style="margin-left:50px" type="button">查询
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>-->
+
+    <div class="btn-group" id="toolbar">
+        <button class="btn btn-default" id="btn_add" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>新增
+        </button>
+        <button class="btn btn-default" id="btn_edit" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>修改
+        </button>
+        <button class="btn btn-default" id="btn_delete" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>删除
+        </button>
+    </div>
+
+    <table id="tb_departments"></table>
+</div>
+
+<!--<div th:replace="~{common/common::footbar}"></div>-->
+
+<script th:src="@{/js/utils/tools/BootstrapTable/BootstrapTable.js}"></script>
+</body>
+</html>

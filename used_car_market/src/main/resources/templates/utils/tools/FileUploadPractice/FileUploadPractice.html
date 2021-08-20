@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/css/fileinput.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.fr.js}"></script>
+    <script th:src="@{/js/fileinput.min.js}"></script>
+    <script th:src="@{/js/fileinput_locale_zh.js}"></script>
+</head>
+<body>
+<div th:replace="~{common/common::topbar}"></div>
+
+<div class="container">
+    <h3>选择图片后立即上传</h3>
+    <div class="col-md-12 input-group">
+        <input type="file" name="file"  id="imgUpload" class="imgFile form-control">
+    </div>
+</div>
+
+<hr/>
+
+<div class="container">
+    <h3>选择多个图片点击按钮上传</h3>
+    <form class="form" action="#" method="post" enctype="multipart/form-data"  id="pollutionForm">
+        <!-- 注意事项：Input type类型为file class为样式 id随意 name随意
+             multiple（如果是要多图上传一定要加上，不加的话每次只能选中一张图）-->
+        <input type="file" class="filePath imgFile form-control" id="img" multiple name="images"><br>
+        <button class="btn btn-success btn-lg" id="upload">上传</button>
+    </form>
+</div>
+
+<div th:replace="~{common/common::footbar}"></div>
+
+
+<script th:src="@{/js/utils/tools/FileUploadPractice/FileUploadPractice.js}"></script>
+</body>
+</html>

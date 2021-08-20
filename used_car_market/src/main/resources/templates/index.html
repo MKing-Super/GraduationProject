@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-table.min.js}"></script>
+</head>
+<body th:class="bg_image" style="padding: 0;">
+
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="height: 80%;width:90%;text-align: center;margin: auto">
+
+
+    <div id="buyCar" class="row" style="background-color: whitesmoke;border-radius:3px;filter:alpha(Opacity=-100);-moz-opacity:0.5;opacity: 0.85;">
+        <br/>
+        <div class="col-sm-6">
+            <br/><br/>
+            <div style="margin: auto;width: 80%;border-radius:10px;">
+<!--        <div style="margin: auto;width: 80%;background-color: yellow;height: 200px;background-image: linear-gradient(#c1e2b3, #fcf8e3);border-radius:10px;">-->
+                <br/><br/><br/>
+                <h1>我要买车</h1>
+            </div>
+        </div>
+        <div class="col-sm-6" >
+            <img class="img-rounded" src="/images/CarLogo/carExample0.png" style="width: 100%">
+            <img class="img-rounded" src="/images/CarLogo/carExample1.png" style="width: 100%">
+        </div>
+    </div>
+    <hr/>
+    <div id="carAdd" class="row" style="background-color: whitesmoke;border-radius:3px;">
+        <br/>
+        <div class="col-sm-6">
+            <div style="margin: auto;width: 80%;border-radius:10px;">
+<!--        <div style="margin: auto;width: 80%;background-color: yellow;height: 200px;background-image: linear-gradient(#e4b9b9,#fcf8e3);border-radius:10px;">-->
+                <br/><br/><br/>
+                <h1>我要卖车</h1>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <br/><br/>
+            <form class="bs-example bs-example-form" role="form" style="height: 130px">
+                <div class="input-group">
+                    <span class="input-group-addon" style="height: 80px">
+                        <h3>请填写手机号</h3>
+                    </span>
+                    <input class="form-control" type="text" style="height: 80px;background-color: #dee2e6;">
+                </div>
+            </form>
+            <br/><br/>
+        </div>
+    </div>
+    <hr/>
+    <div class="row" style="margin: auto;width: 80%;background-color: #dee2e6;height: 100px;border-radius:10px;">
+        <div class="col-sm-1">
+            <h4>售后网点：</h4>
+        </div>
+        <div class="col-sm-11" style="font-size: 20px">
+            <code><font style="font-size: medium">山东省</font></code>
+            <code><font style="font-size: medium">济南市</font></code>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div th:replace="~{common/common::footbar}" style="width: 100%;padding: 0;"></div>
+
+<link rel="stylesheet" th:href="@{/css/index.css}">
+<script th:src="@{/js/common/index.js}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkinfo.carhouse.user.dao.UserHistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mkinfo.carhouse.user.model.UserHistory">
+        <id column="SHEETID" property="sheetid" />
+        <result column="CARID" property="carid" />
+        <result column="USERID" property="userid" />
+        <result column="TIME" property="time" />
+
+        <!-- ExhCar字段，一对一 -->
+        <association property="exhCar" javaType="ExhCar">
+            <id column="SHEETID" property="sheetid"/>
+            <result column="REGISTRATIONTIME" property="registrationtime"/>
+            <result column="MILEAGE" property="mileage"/>
+            <result column="TRANSFERRECORD" property="transferrecord"/>
+            <result column="PRICE" property="price"/>
+            <result column="USEPROPERTIES" property="useproperties"/>
+            <result column="PROPERTYRIGHT" property="propertyright"/>
+            <result column="STATE" property="state"/>
+            <result column="DETAILEDID" property="detailedid"/>
+            <result column="USERID" property="userid"/>
+            <result column="CREATETIME" property="createtime"/>
+        </association>
+
+        <!-- ExhCarDetailed字段，一对一 -->
+        <association property="exhCarDetailed" javaType="ExhCarDetailed">
+            <id column="SHEETID_DETAILED" property="sheetid" />
+            <result column="BRAND" property="brand" />
+            <result column="SERIES" property="series" />
+            <result column="MODEL" property="model" />
+            <result column="MAUNFATURER" property="maunfaturer" />
+            <result column="LEVEL" property="level" />
+            <result column="ENGINE" property="engine" />
+            <result column="GEARBOX" property="gearbox" />
+            <result column="SIZE" property="size" />
+            <result column="STRUCTURE" property="structure" />
+            <result column="EMISSIONSTANDARD" property="emissionstandard" />
+            <result column="DISPLACEMENT" property="displacement" />
+            <result column="FUELTYPE" property="fueltype" />
+        </association>
+    </resultMap>
+
+    <!-- 用户的历史记录列表 -->
+    <select id="userHistoryList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        u1.SHEETID AS 'sheetid',
+        u1.CARID AS 'carid',
+        u1.USERID AS 'userid',
+        u1.TIME AS 'time',
+        e1.SHEETID AS 'sheetid',
+        e1.REGISTRATIONTIME AS 'registrationtime',
+        e1.MILEAGE AS 'mileage',
+        e1.TRANSFERRECORD AS 'transferrecord',
+        e1.PRICE AS 'price',
+        e1.USEPROPERTIES AS 'useproperties',
+        e1.PROPERTYRIGHT AS 'propertyright',
+        e1.STATE AS 'state',
+        e1.DETAILEDID AS 'detailedid',
+        e1.USERID AS 'userid',
+        e2.BRAND AS 'brand',
+        e2.SERIES AS 'series',
+        e2.MODEL AS 'model',
+        e2.MAUNFATURER AS 'maunfaturer',
+        e2.`LEVEL` AS 'level',
+        e2.`ENGINE` AS 'engine',
+        e2.GEARBOX AS 'gearbox',
+        e2.SIZE AS 'size',
+        e2.STRUCTURE AS 'structure',
+        e2.EMISSIONSTANDARD AS 'emissionstandard',
+        e2.DISPLACEMENT AS 'displacement',
+        e2.FUELTYPE AS 'fueltype'
+        FROM user_history u1
+        LEFT JOIN exh_car e1 ON u1.CARID = e1.SHEETID
+        LEFT JOIN exh_car_detailed e2 ON e1.DETAILEDID = e2.SHEETID
+        <where>
+            <if test="userid != null and userid != '' ">
+                u1.USERID = #{userid}
+            </if>
+        </where>
+        ORDER BY u1.TIME DESC
+    </select>
+
+</mapper>

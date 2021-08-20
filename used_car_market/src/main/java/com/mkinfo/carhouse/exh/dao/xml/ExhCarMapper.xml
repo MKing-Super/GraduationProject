@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkinfo.carhouse.exh.dao.ExhCarMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mkinfo.carhouse.exh.model.ExhCar">
+        <id column="SHEETID" property="sheetid"/>
+        <result column="REGISTRATIONTIME" property="registrationtime"/>
+        <result column="MILEAGE" property="mileage"/>
+        <result column="TRANSFERRECORD" property="transferrecord"/>
+        <result column="PRICE" property="price"/>
+        <result column="USEPROPERTIES" property="useproperties"/>
+        <result column="PROPERTYRIGHT" property="propertyright"/>
+        <result column="STATE" property="state"/>
+        <result column="DETAILEDID" property="detailedid"/>
+        <result column="USERID" property="userid"/>
+		<result column="CREATETIME" property="createtime"/>
+
+		<!-- ExhCarDetailed字段，一对一 -->
+        <association property="exhCarDetailed" javaType="ExhCarDetailed">
+            <id column="SHEETID_DETAILED" property="sheetid" />
+            <result column="BRAND" property="brand" />
+            <result column="SERIES" property="series" />
+            <result column="MODEL" property="model" />
+            <result column="MAUNFATURER" property="maunfaturer" />
+            <result column="LEVEL" property="level" />
+            <result column="ENGINE" property="engine" />
+            <result column="GEARBOX" property="gearbox" />
+            <result column="SIZE" property="size" />
+            <result column="STRUCTURE" property="structure" />
+            <result column="EMISSIONSTANDARD" property="emissionstandard" />
+            <result column="DISPLACEMENT" property="displacement" />
+            <result column="FUELTYPE" property="fueltype" />
+        </association>
+
+		<!-- 用户表，一对一 -->
+		<association property="sysUser" javaType="SysUser">
+			<id column="SHEETID_USER" property="sheetid" />
+			<result column="USERNAME" property="username" />
+			<result column="PHONE" property="phone" />
+			<result column="PASSWORD" property="password" />
+			<result column="PETNAME" property="petname" />
+			<result column="PERSONNALCATEGORY" property="personnalcategory" />
+			<result column="GRADE" property="grade" />
+		</association>
+
+        <!-- exhPicturesList字段，一对多 -->
+        <collection property="exhPicturesList" ofType="ExhPictures">
+            <id column="SHEETID_PICTURES" property="sheetid" />
+            <result column="PATH" property="path" />
+            <result column="CARID" property="carid" />
+        </collection>
+
+
+    </resultMap>
+    <!-- 查询完整列表信息 -->
+    <select id="completeExhCar" resultMap="BaseResultMap">
+        SELECT
+	        e1.SHEETID AS 'sheetid',
+	        e1.REGISTRATIONTIME AS 'registrationtime',
+	        e1.MILEAGE AS 'mileage',
+	        e1.TRANSFERRECORD AS 'transferrecord',
+	        e1.PRICE AS 'price',
+	        e1.USEPROPERTIES AS 'useproperties',
+	        e1.PROPERTYRIGHT AS 'propertyright',
+	        e1.STATE AS 'state',
+	        e1.DETAILEDID AS 'detailedid',
+	        e1.USERID AS 'userid',
+	        e2.BRAND AS 'brand',
+	        e2.SERIES AS 'series',
+	        e2.MODEL AS 'model',
+	        e2.MAUNFATURER AS 'maunfaturer',
+	        e2.`LEVEL` AS 'level',
+	        e2.`ENGINE` AS 'engine',
+	        e2.GEARBOX AS 'gearbox',
+	        e2.SIZE AS 'size',
+	        e2.STRUCTURE AS 'structure',
+	        e2.EMISSIONSTANDARD AS 'emissionstandard',
+	        e2.DISPLACEMENT AS 'displacement',
+	        e2.FUELTYPE AS 'fueltype'
+        FROM
+	        exh_car e1,exh_car_detailed e2
+        WHERE
+	        e1.DETAILEDID = e2.SHEETID
+	    ORDER BY e1.REGISTRATIONTIME DESC
+    </select>
+
+    <!-- 查询完整的全部车辆详细视图数据 -->
+    <select id="completeExhCarView" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+	        e1.SHEETID AS 'sheetid',
+	        e1.REGISTRATIONTIME AS 'registrationtime',
+	        e1.MILEAGE AS 'mileage',
+	        e1.TRANSFERRECORD AS 'transferrecord',
+	        e1.PRICE AS 'price',
+	        e1.USEPROPERTIES AS 'useproperties',
+	        e1.PROPERTYRIGHT AS 'propertyright',
+	        e1.STATE AS 'state',
+	        e1.DETAILEDID AS 'detailedid',
+	        e1.USERID AS 'userid',
+	        e1.CREATETIME AS 'createtime',
+	        e2.SHEETID AS SHEETID_DETAILED,
+	        e2.BRAND AS 'brand',
+	        e2.SERIES AS 'series',
+	        e2.MODEL AS 'model',
+	        e2.MAUNFATURER AS 'maunfaturer',
+	        e2.`LEVEL` AS 'level',
+	        e2.`ENGINE` AS 'engine',
+	        e2.GEARBOX AS 'gearbox',
+	        e2.SIZE AS 'size',
+	        e2.STRUCTURE AS 'structure',
+	        e2.EMISSIONSTANDARD AS 'emissionstandard',
+	        e2.DISPLACEMENT AS 'displacement',
+	        e2.FUELTYPE AS 'fueltype',
+	        e3.SHEETID AS SHEETID_PICTURES,
+	        e3.PATH AS 'path',
+	        e3.CARID AS 'carid'
+        FROM
+	        (
+	        SELECT *
+	        FROM exh_car
+	        LIMIT #{start},#{rows}
+	        ) e1
+			LEFT JOIN exh_car_detailed e2 ON e2.SHEETID = e1.DETAILEDID
+	        LEFT JOIN exh_pictures e3 ON e1.SHEETID = e3.CARID
+		<where>
+			<if test="minVehicleAge != null and minVehicleAge != '' and minVehicleAge != 0">
+				AND TIMESTAMPDIFF(YEAR,e1.REGISTRATIONTIME,CURRENT_DATE()) &gt; #{minVehicleAge}
+			</if>
+			<if test="maxVehicleAge != null and maxVehicleAge != '' and maxVehicleAge != 0">
+				AND TIMESTAMPDIFF(YEAR,e1.REGISTRATIONTIME,CURRENT_DATE()) &lt;= #{maxVehicleAge}
+			</if>
+			<if test="minMileage != null and minMileage != '' and minMileage != 0">
+				AND e1.MILEAGE &gt; #{minMileage}
+			</if>
+			<if test="maxMileage != null and maxMileage != '' and maxMileage != 0">
+				AND e1.MILEAGE &lt;= #{maxMileage}
+			</if>
+			<if test="minPrice != null and minPrice != '' and minPrice != 0">
+				AND e1.PRICE &gt; #{minPrice}
+			</if>
+			<if test="maxPrice != null and maxPrice != '' and maxPrice != 0">
+				AND e1.PRICE &lt;= #{maxPrice}
+			</if>
+			<if test="useproperties != null and useproperties != ''">
+				AND e1.USEPROPERTIES = #{useproperties}
+			</if>
+			<if test="propertyright != null and propertyright != ''">
+				AND e1.PROPERTYRIGHT = #{propertyright}
+			</if>
+			<if test="state != null and state != ''">
+				AND e1.STATE = #{state}
+			</if>
+
+			<if test="brand != null and brand != ''">
+				AND e2.BRAND = #{brand}
+			</if>
+			<if test="series != null and series != ''">
+				AND e2.SERIES = #{series}
+			</if>
+			<if test="level != null and level != ''">
+				AND e2.LEVEL = #{level}
+			</if>
+			<if test="structure != null and structure != ''">
+				AND e2.STRUCTURE like #{structure}
+			</if>
+			<if test="emissionstandard != null and emissionstandard != ''">
+				AND e2.EMISSIONSTANDARD = #{emissionstandard}
+			</if>
+			<if test="displacement != null and displacement != ''">
+				AND e2.DISPLACEMENT = #{displacement}
+			</if>
+			<if test="fueltype != null and fueltype != '' and fueltype != '其他'">
+				AND e2.FUELTYPE = #{fueltype}
+			</if>
+			<if test="fueltype == '其他'">
+				AND e2.FUELTYPE NOT IN('汽油','柴油','电动','油电混合')
+			</if>
+		</where>
+		ORDER BY CREATETIME DESC
+
+    </select>
+
+	<!-- 查看一辆车的所有信息（包括用户信息） -->
+	<select id="exhCarAndUser" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		e1.SHEETID AS 'sheetid',
+		e1.REGISTRATIONTIME AS 'registrationtime',
+		e1.MILEAGE AS 'mileage',
+		e1.TRANSFERRECORD AS 'transferrecord',
+		e1.PRICE AS 'price',
+		e1.USEPROPERTIES AS 'useproperties',
+		e1.PROPERTYRIGHT AS 'propertyright',
+		e1.STATE AS 'state',
+		e1.DETAILEDID AS 'detailedid',
+		e1.USERID AS 'userid',
+		e1.CREATETIME AS 'createtime',
+
+		e2.SHEETID AS SHEETID_DETAILED,
+		e2.BRAND AS 'brand',
+		e2.SERIES AS 'series',
+		e2.MODEL AS 'model',
+		e2.MAUNFATURER AS 'maunfaturer',
+		e2.`LEVEL` AS 'level',
+		e2.`ENGINE` AS 'engine',
+		e2.GEARBOX AS 'gearbox',
+		e2.SIZE AS 'size',
+		e2.STRUCTURE AS 'structure',
+		e2.EMISSIONSTANDARD AS 'emissionstandard',
+		e2.DISPLACEMENT AS 'displacement',
+		e2.FUELTYPE AS 'fueltype',
+
+		e3.SHEETID AS SHEETID_PICTURES,
+		e3.PATH AS 'path',
+		e3.CARID AS 'carid',
+
+		e4.SHEETID AS SHEETID_USER,
+		e4.USERNAME AS 'username',
+		e4.PHONE AS 'phone',
+		e4.PETNAME AS 'petname',
+		e4.PERSONNALCATEGORY AS 'personnalcategory',
+		e4.GRADE AS 'grade'
+		FROM
+		exh_car e1
+		LEFT JOIN exh_car_detailed e2 ON e1.DETAILEDID = e2.SHEETID
+		LEFT JOIN exh_pictures e3 ON e1.SHEETID = e3.CARID
+		LEFT JOIN sys_user e4 ON e1.USERID = e4.SHEETID
+		WHERE
+		e1.SHEETID = #{exhCarSheetid}
+	</select>
+
+	<!-- 车辆审核 -->
+	<select id="sysCheck" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+	        e1.SHEETID AS 'sheetid',
+	        e1.REGISTRATIONTIME AS 'registrationtime',
+	        e1.MILEAGE AS 'mileage',
+	        e1.TRANSFERRECORD AS 'transferrecord',
+	        e1.PRICE AS 'price',
+	        e1.USEPROPERTIES AS 'useproperties',
+	        e1.PROPERTYRIGHT AS 'propertyright',
+	        e1.STATE AS 'state',
+	        e1.DETAILEDID AS 'detailedid',
+	        e1.USERID AS 'userid',
+	        e2.BRAND AS 'brand',
+	        e2.SERIES AS 'series',
+	        e2.MODEL AS 'model',
+	        e2.MAUNFATURER AS 'maunfaturer',
+	        e2.`LEVEL` AS 'level',
+	        e2.`ENGINE` AS 'engine',
+	        e2.GEARBOX AS 'gearbox',
+	        e2.SIZE AS 'size',
+	        e2.STRUCTURE AS 'structure',
+	        e2.EMISSIONSTANDARD AS 'emissionstandard',
+	        e2.DISPLACEMENT AS 'displacement',
+	        e2.FUELTYPE AS 'fueltype'
+        FROM
+	        exh_car e1 LEFT JOIN exh_car_detailed e2 ON e1.DETAILEDID = e2.SHEETID
+        <where>
+			<if test="state != null and state != ''">
+				AND e1.STATE = #{state}
+			</if>
+		</where>
+
+    </select>
+
+	<!-- 用户上架的车辆 -->
+	<select id="userCarInformation" resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+	        e1.SHEETID AS 'sheetid',
+	        e1.REGISTRATIONTIME AS 'registrationtime',
+	        e1.MILEAGE AS 'mileage',
+	        e1.TRANSFERRECORD AS 'transferrecord',
+	        e1.PRICE AS 'price',
+	        e1.USEPROPERTIES AS 'useproperties',
+	        e1.PROPERTYRIGHT AS 'propertyright',
+	        e1.STATE AS 'state',
+	        e1.DETAILEDID AS 'detailedid',
+	        e1.USERID AS 'userid',
+			e1.CREATETIME AS 'createtime',
+	        e2.BRAND AS 'brand',
+	        e2.SERIES AS 'series',
+	        e2.MODEL AS 'model',
+	        e2.MAUNFATURER AS 'maunfaturer',
+	        e2.`LEVEL` AS 'level',
+	        e2.`ENGINE` AS 'engine',
+	        e2.GEARBOX AS 'gearbox',
+	        e2.SIZE AS 'size',
+	        e2.STRUCTURE AS 'structure',
+	        e2.EMISSIONSTANDARD AS 'emissionstandard',
+	        e2.DISPLACEMENT AS 'displacement',
+	        e2.FUELTYPE AS 'fueltype'
+        FROM
+	        exh_car e1 LEFT JOIN exh_car_detailed e2 ON e1.DETAILEDID = e2.SHEETID
+	    <where>
+			<if test="userid != null and userid != '' ">
+				e1.USERID = #{userid}
+			</if>
+		</where>
+		ORDER BY e1.CREATETIME DESC
+	</select>
+
+</mapper>

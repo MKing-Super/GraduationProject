@@ -1,0 +1,74 @@
+#项目端口
+server:
+  port: 9090
+
+spring:
+  #数据库
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/used_car_market1?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  #整合thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+    cache: false
+  mvc:
+    format:
+      date: yyyy-MM-dd
+  #设置文件上传的大小
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  web:
+    resources:
+      # 设置一个本地静态文件夹
+      static-locations: classpath:/static/,file:E://git//used_car_market_upload
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1216578277@qq.com
+    # 配置密码，注意不是真正的密码，而是刚刚申请到的授权码
+    password: xyloffuqaayojhbc
+    # 端口号465或587
+    port: 587
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+    # 配置SSL 加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+
+#整合mybatis-plus
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    # call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    # 是否控制台 print mybatis-plus 的 LOGO
+    banner: true
+  #映射文件路径
+  mapper-locations: classpath*:com/mkinfo/carhouse/**/xml/*.xml
+  #设置别名
+  type-aliases-package: com.mkinfo.carhouse.*.model
+
+
+
+
+

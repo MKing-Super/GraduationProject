@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!-- 引入导航栏 -->
+<div th:replace="~{common/common::topbar}"></div>
+
+<div style="margin: auto;width: 90%">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div th:replace="~{common/common::userSideBar}"></div>
+        </div>
+        <div class="col-sm-10">
+
+            <div style="margin: auto;text-align: center">
+                <h3>这里是个人中心</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 引入页脚 -->
+<div th:replace="~{common/common::footbar}"></div>
+
+</body>
+</html>

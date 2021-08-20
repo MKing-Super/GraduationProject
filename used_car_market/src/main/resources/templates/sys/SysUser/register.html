@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sys/SysUser/register.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body class="text-center" th:class="bg_image">
+<!-- 引入导航栏 -->
+<div th:replace="~{common/common::topbar}"></div>
+
+<br/><br/><br/>
+
+<div class="form-login" style="filter:alpha(Opacity=-100);-moz-opacity:0.8;opacity: 0.9;">
+    <br/><br/>
+    <h1 class="h3 mb-3 font-weight-normal">用户注册</h1>
+    <br/><br/>
+    <label class="visually-hidden h4" for="phone">手机号</label>
+    <input class="form-control" id="phone" name="phone" type="text" placeholder="请输入手机号" autocomplete="off" onblur="checkPhone(this)">
+
+    <label class="visually-hidden h4" for="password">密码</label>
+    <input class="form-control" id="password" name="password" type="password" placeholder="请输入密码"  autocomplete="off" onblur="checkPassword(this)">
+    <br/>
+
+    <!-- 图形验证码 -->
+    <div class="row">
+        <label class="visually-hidden h4 col-sm-2" for="password"></label>
+        <div class="col-sm-3">
+            <input class="form-control" id="pictureCode" placeholder="输入验证码" type="text" autocomplete="off">
+        </div>
+        <div class="col-sm-7">
+            <span>
+                <canvas height="45" id="canvas" width="120"></canvas>
+                <a class="btn btn-warning" id="changeImg">换一张</a>
+            </span>
+        </div>
+    </div>
+
+    <br/>
+    <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">注册</button>
+</div>
+
+<script th:src="@{/js/sys/SysUser/register.js}"></script>
+</body>
+</html>
